@@ -1,0 +1,12 @@
+<p>some-material works!</p>
+<button (click)="loginCheck()" mat-raised-button color="primary">Login Check</button>
+<button routerLink="prodhome" mat-raised-button color="primary">Home</button>
+<button routerLink="list" mat-raised-button color="danger">Product List</button>
+<hr>
+<!-- <button mat-raised-button  [routerLink]="[ {outlets :{primary :'prodhome', sidebar : 'product_sid_menu'}}]">Sidebar + Products</button> -->
+<button mat-raised-button [routerLink]=" [ {outlets :{sidebar : 'product_sid_menu'}}] ">Open Sidebar</button>
+<button mat-raised-button [routerLink]="[ {outlets :{sidebar : null }}] ">Close Sidebar</button>
+<button mat-raised-button (click)="isProductSidebarOpen = !isProductSidebarOpen" [routerLink]="[ {outlets :{sidebar : isProductSidebarOpen ? null : 'product_sid_menu' }}] ">Toggle Sidebar</button>
+<hr>
+<router-outlet></router-outlet>
+<router-outlet name="sidebar "></router-outlet>

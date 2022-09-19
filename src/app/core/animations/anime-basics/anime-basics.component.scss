@@ -1,0 +1,44 @@
+button {
+    padding: 0.5rem 1rem;
+    margin: 1rem 1rem;
+    &:hover {
+        background-color: orangered;
+    }
+}
+
+div {
+    #simple {
+        background-color: #BF467E;
+        display: inline-block;
+        padding: 1rem 2rem;
+    }
+    .btn {
+        background-color: #9c27b0;
+        color: white;
+        display: inline-block;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        // box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.15);
+        // transition: all 300ms ease;
+    }
+}
+
+.popup {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    left: 0;
+    top: 40%;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    .my_form {
+        background-color: #9c27b0;
+        color: white;
+        // height: auto;
+        margin: auto;
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+}

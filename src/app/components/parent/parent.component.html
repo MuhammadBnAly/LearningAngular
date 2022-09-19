@@ -1,0 +1,40 @@
+<!-- <h2 class="alert alert-info text-center">Parent</h2>
+
+<input type="text" (keyup)="theTitle" [value]="theTitle" />
+<p>input from parent to child </p>
+<app-child [inputToChild]="outputFromParent"></app-child>
+
+<p>output from child to parent</p>
+<app-child (outputFromChild)="inputToParent = $event"></app-child>
+
+<p>data from child {{ inputToParent }}</p> -->
+
+<!-- --------------------------- -->
+
+<!--
+<app-child #compRef [(theTitle)]="theTitle"></app-child>
+<div>
+    <button (click)="lifeCycleTitle = 'Title 2'" class="btn btn-info">Change Title</button>
+    <app-child [setRefactor_Title]="lifeCycleTitle">
+        <h1 class="demo2">h1:ng-content(child)</h1>
+        <p id="demo1">P- ng-content(child)</p>
+    </app-child>
+</div> -->
+
+<!-- --------------------------- -->
+
+<!-- <ng-container *ngFor="let item of [1,2,3,4,5] ; let i = index">
+    <app-child [title]="myTitle + '_' + item"></app-child>
+</ng-container>
+
+<app-child [title]="myTitle">
+    <p #ref *ngFor="let item of [1,2,3,4,5];">item #{{item}}</p>
+</app-child> -->
+
+<!-- --------------------------- -->
+<div class="sect col-6">
+    <h3 class="alert alert-success text-center">Parent</h3>
+    <input type="text" #namesRef>
+    <button (click)="addNames(namesRef.value); namesRef.value=''; childRef.refresh() ">Add Name</button>
+    <app-child #childRef [names]="names "></app-child>
+</div>

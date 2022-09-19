@@ -1,0 +1,25 @@
+<p class="alert alert-success text-center">Child</p>
+
+<!-- <p>{{ inputToChild }}</p>
+<button (click)="emitDate()">Emit from Child to Parent</button>
+<br> <br>
+<div class="d-flex">
+    <input type="text" (keyup)="emitIt($event)" />
+    <p>from CHILD : {{theTitle}}</p>
+</div> -->
+
+<!-- <div>
+    {{setRefactor_Title_after}}
+    <ng-content select="h1"></ng-content>
+    <ng-content select="p"></ng-content>
+    <hr>
+    <ng-content select=".demo2"></ng-content>
+    <ng-content select="#demo1"></ng-content>
+</div> -->
+
+<div>
+    <!-- <ul *ngFor="let n of list"> -->
+    <ul *ngFor="let n of names">
+        <li>{{n}}</li>
+    </ul>
+</div>

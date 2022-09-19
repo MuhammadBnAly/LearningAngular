@@ -1,0 +1,24 @@
+<div class="text-center">
+    <button (click)="isLogin = true" mat-raised-button color="primary">Login</button>
+    <button (click)="isLogin = false" mat-raised-button color="primary">Logout</button>
+    <button (click)="openPopup = !openPopup" mat-raised-button color="primary">Open PopUp</button>
+</div>
+<div class="box box1">
+    <h1 class="alert alert-info">Basics Animations</h1>
+    <hr>
+    <!-- css way -->
+    <!-- <div [ngStyle]="isLogin ? {opacity : 1} : {opacity : 0}">Hello World</div> -->
+    <!-- <div *ngIf="isLogin" [ngStyle]="isLogin ? {opacity : 1} : {opacity : 0}">Hello World</div> -->
+
+    <!-- animation way -->
+    <div [@.disabled]="!isLogin">
+        <div class="btn" [@fade]="isLogin ? 'login' : 'logout'">Hello World After Login</div>
+        <div id="simple" *ngIf="isLogin" @fade>Simple</div>
+    </div>
+    <div @popupParent class="popup" *ngIf="openPopup" (click)="openPopup = false">
+        <div class="my_form" @popupChild>
+            <p>Congratulations, You are now one of our team.
+            </p>
+        </div>
+    </div>
+</div>

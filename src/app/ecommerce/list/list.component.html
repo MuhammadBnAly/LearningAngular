@@ -1,0 +1,6 @@
+<h1>list works!</h1>
+<!-- <mat-nav-list> -->
+<!-- <a mat-list-item [routerLink]="[ 'list', product.id, 'details']" *ngFor="let product of products "> -->
+<a mat-list-item [routerLink]="[ product.id]" *ngFor="let product of products ">
+     {{product.id}} => {{product.name}}</a>
+<!-- </mat-nav-list> -->

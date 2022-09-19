@@ -1,0 +1,8 @@
+li {
+    background-color: black;
+    padding: 5px;
+    margin: 0;
+    &:hover {
+        background-color: #555;
+    }
+}

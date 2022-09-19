@@ -1,0 +1,14 @@
+<h2 class="alert alert-success text-center">animation works!</h2>
+
+<!-- Animation with Routing -->
+<div class="na text-center">
+    <button routerLinkActive="active_router" routerLink="anime_basics" mat-raised-button color="warn">Basics</button>
+    <button routerLinkActive="active_router" routerLink="anime_login" mat-raised-button color="warn">Login</button>
+    <button routerLinkActive="active_router" routerLink="anime_logout" mat-raised-button color="warn">Logout</button>
+    <button routerLinkActive="active_router" routerLink="anime_popup" mat-raised-button color="warn">Pop Up</button>
+    <button routerLinkActive="" routerLink="" mat-raised-button color="primary">back Home</button>
+</div>
+<main [@routing]="outletRef.isActivated ? outletRef.activatedRoute : '' ">
+    <router-outlet #outletRef="outlet"></router-outlet>
+</main>
+<hr>

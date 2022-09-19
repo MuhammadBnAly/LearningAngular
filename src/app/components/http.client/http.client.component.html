@@ -1,0 +1,12 @@
+<h2 class="alert alert-heading text-center">http.client works!</h2>
+<div class="text-center">
+    <button mat-raised-button color="accent" (click)="getData()">Get</button>
+    <button mat-raised-button color="accent" (click)="postData()">Post</button>
+    <button mat-raised-button color="accent" (click)="putData()">Put</button>
+    <button mat-raised-button color="accent" (click)="deleteData()">Delete</button>
+    <button mat-raised-button color="accent" (click)="getProgress()">Progress Request</button>
+</div>
+<div class="coding">
+    <code>{{returnedData | json}}</code>
+</div>
+<!-- help -->

@@ -1,0 +1,17 @@
+<div class="alert alert-light text-center">
+    <nav>
+        <a routerLinkActive="active_router" routerLink="" [routerLinkActiveOptions]="{exact:true}">
+      Home</a> |
+        <a routerLinkActive="active_router" [queryParams]="{parent:true}" routerLink="parent">Parent</a> |
+        <a routerLinkActive="active_router" routerLink="child" [routerLinkActiveOptions]="{exact:true}">
+      Child</a> |
+        <a routerLinkActive="active_router" [routerLink]="['child','20']" [queryParams]="{child:true}">Child/20</a> |
+        <a routerLinkActive="active_router" routerLink="svg" #svgRef="routerLinkActive" [queryParams]="{svg:5}" fragment="theTitle">SVG</a> |
+        <a routerLinkActive="active_router" routerLink="auth">Auth</a> |
+        <a routerLinkActive="active_router" routerLink="material">Some Materials</a> |
+        <a routerLinkActive="active_router" routerLink="http">HTTP</a> |
+        <a routerLinkActive="active_router" routerLink="translate">Translate</a> |
+        <a routerLinkActive="active_router" routerLink="animation">Animation</a> |
+    </nav>
+</div>
+SVG : {{svgRef.isActive}}

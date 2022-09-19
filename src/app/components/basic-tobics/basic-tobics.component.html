@@ -1,0 +1,109 @@
+<div class="alert alert-info text-center">
+    <h2>basic-topics works!</h2>
+</div>
+<div class="container ">
+    <div class="d-flex row row-cols-lg-2 sect-0">
+        <div class="col col-md-4 col-sm-12 sect">
+            <!-- Binding -->
+            <p>the name of the application is <span style="color:red;font-size:larger">{{title}}</span></p>
+            <img [src]="imgUrl" alt="img1">
+            <img bind-src="imgUrl" alt="img2">
+            <img src="{{imgUrl}}" alt="img3">
+
+            <p [class.blue]="username">{{username}}</p>
+            <p [class]="{a:username, b:!username}">{{title}}</p>
+            <p [ngClass]="{a:username, b:!username}">{{title}}</p>
+            <p [style.color]="myColor[2]">{{title}}</p>
+            <p [style.color]="username ? myColor[0] : myColor[1]">{{title}}</p>
+        </div>
+        <!-- ---------------------------Tow way binding & ngModel--------------------------- -->
+        <div class="col sect">
+            <p>Tow way binding & ngModel</p>
+
+            <input [ngModel]="username" (ngModelChange)="username  = $event">
+            <p [style.color]="username ? 'blue' : 'red' ">{{username}}</p>
+
+            <input [(ngModel)]="username">
+            <p>{{username}}</p>
+        </div>
+        <!-- <div class="col-6"> -->
+        <!-- ---------------------------Structural Directives--------------------------- -->
+        <div class="col-lg-6 sect">
+            <p>Structural Directives (*ngIf)</p>
+
+            <input value="more" type="button" (click)="isActive = !isActive;">
+            <p *ngIf="isActive">{{username}}</p>
+            <p [hidden]="isActive">here is {{username + ' ' + username}}</p>
+
+        </div>
+        <div class="col-lg-6 sect">
+            <p>Structural Directives (*ngFor)</p>
+            <button (click)="refreshData()">Refresh</button>
+            <ul>
+                <li>ID | Name | Age</li>
+                <li *ngFor="let s of students; let i = index; trackBy:track">
+                    {{s.id}} | {{s.name}} | {{s.age}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6 sect">
+            <p>Structural Directives (*ngSwitch)</p>
+            <div *ngFor="let color of colors; let i = index;">
+                <input type="radio" id="color_{{i}}" [value]="color" [(ngModel)]="selectedColor">
+                <label for="color_{{i}}"> {{color}} </label>
+            </div>
+            <div [ngSwitch]="selectedColor">
+                <p *ngSwitchCase="'red'">this is {{selectedColor}}</p>
+                <p *ngSwitchCase="'blue'">this is {{selectedColor}}</p>
+                <p *ngSwitchCase="'yellow'">this is {{selectedColor}}</p>
+                <p *ngSwitchDefault>No thing yet</p>
+            </div>
+        </div>
+
+        <!-- ---------------------------Template reference variable--------------------------- -->
+        <div class="col-lg-6 sect">
+            <p>Template reference variable</p>
+
+            <input type="text" #phoneNumber>
+            <button (click)="call(phoneNumber.value)">call</button>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+<hr>
+
+<div class="container sect-0 d-grid ">
+    <div class="row row-cols-2 ">
+
+        <!-- ---------------------------Component Interaction--------------------------- -->
+        <!-- <div class="col-6 sect">
+            <p>Component Interaction</p>
+            <app-parent></app-parent>
+        </div> -->
+        <div class="col-5 sect">
+            <p>{{$any(item).name}}</p>
+        </div>
+        <div class="col-5 sect">
+            <app-svg></app-svg>
+        </div>
+        <div class="col-6 sect">
+            <h4 class="alert alert-info text-center">Input</h4>
+            <input type="text" #ref (keyup)="(0)" /> {{ref.value}}<br>
+            <input type="text" (keyup)="log($event)" />console keyup<br>
+            <input type="text" (keyup.enter)="log($event)" />enter keyup<br>
+            <input type="text" (keyup.esc)="log($event)" />esc keyup<br>
+            <input type="text" (keyup.5)="log($event)" />5 keyup<br>
+            <input type="text" (keyup.arrowdown)="log($event)" />arrowdown keyup<br>
+            <input type="text" (blur)="log($event)" />(blur)click out of input<br>
+            <input type="text" (blur)="log($event);anotherLog($event)" />(blur) + multiple methods<br>
+            <input type="text" #theRef (blur)="log($event); theRef.value = ''" />(blur) + empty the input<br>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- </div> -->
+<!-- </div> -->

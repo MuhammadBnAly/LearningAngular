@@ -1,0 +1,46 @@
+<h3 class="alert alert-warning">forms</h3>
+<!-- <p>Reactive Forms : </p>
+<input type="text" [formControl]="reactiveForms">
+
+<p>Template Forms : </p>
+<input type="text" [(ngModel)]="templateDrivenForms">
+<hr> -->
+<!--  -->
+<form [formGroup]="theFormGroup" (ngSubmit)="onSubmit()">
+    <label>
+      First Name :
+      <input type="text" formControlName="fName">
+      <span *ngIf="fName?.invalid && fName?.touched && fName?.dirty">
+        First Name is Required</span>
+      <span *ngIf="'fName.pristine'"></span>
+
+    </label>
+    <label>
+      Last Name :
+      <input type="text" formControlName="lName">
+    </label>
+    <label>
+      Email :
+      <input type="email" formControlName="email">
+    <span *ngIf="email?.invalid && email?.touched && email?.dirty">
+      <span *ngIf="email?.errors?.['pattern']">Wrong Pattern</span>
+      <span *ngIf="email?.errors?.['email']">Wrong Email</span>
+    </span>
+    </label>
+    <div formGroupName="address">
+        <label>
+        Address :
+      </label>
+        <label>
+        Country :
+        <input type="text" formControlName="country">
+      </label>
+        <label>
+        City :
+        <input type="text" formControlName="city">
+      </label>
+    </div>
+    <input type="submit" value="Submit" [disabled]="theFormGroup.invalid">
+    <!-- <input type="button" value="update" (click)="onUpdate()"> -->
+</form>
+Form Status : {{theFormGroup.status}}

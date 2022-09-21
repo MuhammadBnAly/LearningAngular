@@ -18,10 +18,12 @@ import { CanLoadGuard } from './core/guards/can.load.guard';
 import { RoleGuard } from './core/guards/role.guard';
 import { HttpClientComponent } from './components/http.client/http.client.component';
 import { TranslateComponent } from './components/translate/translate.component';
+import { RxjsComponent } from './components/rxjs/rxjs.component';
 import { AnimationComponent } from './components/animation/animation.component';
 import { AnimeLoginComponent } from './core/animations/anime-login/anime-login.component';
 import { AnimePopupComponent } from './core/animations/anime-popup/anime-popup.component';
 import { AnimeBasicsComponent } from './core/animations/anime-basics/anime-basics.component';
+import { RxjsTeddyComponent } from './components/rxjs-teddy/rxjs-teddy.component';
 
 const routes: Routes = [
   {path:'', component : HomeComponent},
@@ -46,6 +48,8 @@ const routes: Routes = [
     {path : 'anime_logout', component : AnimeLogoutComponent},
     {path : 'anime_popup', component : AnimePopupComponent},
   ]},
+  {path : 'rxjs', component : RxjsComponent},
+  {path : 'rxjsteddy', component : RxjsTeddyComponent},
 
   // // material ecommerce
   {path:'material', component : SomeMaterialComponent, children : [

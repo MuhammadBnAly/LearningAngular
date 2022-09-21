@@ -34,8 +34,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateComponent } from './components/translate/translate.component';
 import { HttpClient } from '@angular/common/http';
 import { AnimationComponent } from './components/animation/animation.component';
+import { RxjsComponent } from './components/rxjs/rxjs.component';
+import { RxjsTeddyComponent } from './components/rxjs-teddy/rxjs-teddy.component';
 //
- 
 
 const appRoutes : Routes = [
   { path : 'parent', component : ParentComponent},
@@ -64,6 +65,8 @@ const appRoutes : Routes = [
     HttpClientComponent,
     TranslateComponent,
     AnimationComponent,
+    RxjsComponent,
+    RxjsTeddyComponent,
     //
   ],
   imports: [

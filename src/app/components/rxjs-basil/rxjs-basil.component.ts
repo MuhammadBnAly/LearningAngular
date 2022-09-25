@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile } from 'rxjs';
+import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-basil',
@@ -133,5 +133,28 @@ export class RxjsBasilComponent implements OnInit {
   // takeWhile
   takeWhile_(){
     from([1,2,3,4,5,6,7,8,9,10]).pipe( takeWhile(x => x < 5) ).subscribe(console.log);
+  }
+  // skip
+  skip_(){
+    interval(100).pipe( skip(5) ).subscribe( console.log);
+    of(1, 2).pipe( skip(5) ).subscribe(
+      // {
+      // error : err => console.log('error' + err),
+      // next : console.log,
+      // complete : console.log('completed')}
+      );
+  }
+  // skipLast
+  skipLast_(){
+    interval(100).pipe( skipLast(20) ).subscribe( console.log);
+  }
+  // skipUntil
+  skipUntil_(){
+    interval(100).pipe( skipUntil( timer(450) ) ).subscribe( console.log);
+  }
+  //
+  skipWhile_(){
+    from([1,2,3,4,5,6,7,8,9,10]).pipe( skipWhile( (x , i) => x < 5) ).subscribe(console.log);
+    from([1,2,3,4,5,6,7,8,9,10]).pipe( skipWhile( (_ , i) => i!== 7) ).subscribe(console.log);
   }
 }

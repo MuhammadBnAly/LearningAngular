@@ -24,6 +24,7 @@ import { AnimeLoginComponent } from './core/animations/anime-login/anime-login.c
 import { AnimePopupComponent } from './core/animations/anime-popup/anime-popup.component';
 import { AnimeBasicsComponent } from './core/animations/anime-basics/anime-basics.component';
 import { RxjsTeddyComponent } from './components/rxjs-teddy/rxjs-teddy.component';
+import { RxjsBasilComponent } from './components/rxjs-basil/rxjs-basil.component';
 
 const routes: Routes = [
   {path:'', component : HomeComponent},
@@ -48,8 +49,12 @@ const routes: Routes = [
     {path : 'anime_logout', component : AnimeLogoutComponent},
     {path : 'anime_popup', component : AnimePopupComponent},
   ]},
-  {path : 'rxjs', component : RxjsComponent},
-  {path : 'rxjsteddy', component : RxjsTeddyComponent},
+  {path : 'rxjs', component : RxjsComponent, children : [
+    {path : '', redirectTo : 'rxjs' , pathMatch : 'full'},
+    {path : 'rxjsteddy', component : RxjsTeddyComponent},
+    {path : 'rxjsbasil', component : RxjsBasilComponent},
+  ]},
+
 
   // // material ecommerce
   {path:'material', component : SomeMaterialComponent, children : [

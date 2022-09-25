@@ -36,6 +36,7 @@ import { HttpClient } from '@angular/common/http';
 import { AnimationComponent } from './components/animation/animation.component';
 import { RxjsComponent } from './components/rxjs/rxjs.component';
 import { RxjsTeddyComponent } from './components/rxjs-teddy/rxjs-teddy.component';
+import { RxjsBasilComponent } from './components/rxjs-basil/rxjs-basil.component';
 //
 
 const appRoutes : Routes = [
@@ -67,6 +68,7 @@ const appRoutes : Routes = [
     AnimationComponent,
     RxjsComponent,
     RxjsTeddyComponent,
+    RxjsBasilComponent,
     //
   ],
   imports: [

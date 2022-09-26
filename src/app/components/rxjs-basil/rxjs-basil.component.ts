@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil } from 'rxjs';
+import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-basil',
@@ -157,4 +157,59 @@ export class RxjsBasilComponent implements OnInit {
     from([1,2,3,4,5,6,7,8,9,10]).pipe( skipWhile( (x , i) => x < 5) ).subscribe(console.log);
     from([1,2,3,4,5,6,7,8,9,10]).pipe( skipWhile( (_ , i) => i!== 7) ).subscribe(console.log);
   }
+  // distinct
+  distinct_(){
+    of(4,3,7,1,6,3,2,5,2,1,3,2,1,9,6,5,4).pipe( distinct() ).subscribe( x => console.log(x));
+    of({id:1, name:'ali'},{id:2, name:'ola'},{id:1, name:'ali'},).pipe(
+      distinct( x => x.name)
+    ).subscribe(x => console.log(x.name))
+  }
+  // distinctUntilChanged
+  distinctUntilChanged_(){
+    of(1,1,2,2,3,4,3).pipe( distinctUntilChanged() ).subscribe( x => console.log(x));
+    of({id:1, name:'ali'},{id:2, name:'ali'},{id:3, name:'hani'},).pipe(
+      distinctUntilChanged( ( x , curr ) => x.name === curr.name)
+    ).subscribe( console.log )
+  }
+  // distinctUntilChanged
+  distinctUntilKeyChanged_(){
+    of({id:1, name:'ali'},{id:2, name:'ali'},{id:3, name:'hani'},).pipe(
+      distinctUntilKeyChanged( 'name')
+    ).subscribe( console.log );
+    //
+    of({id:1, name:'ali'},{id:2, name:'ali'},{id:3, name:'hani'},).pipe(
+      distinctUntilKeyChanged( 'name', (x , y) => x.substring(0,2) === y.substring(0,2))
+    ).subscribe( console.log );
+  }
+  // filter
+  filter_(){
+    const posts = [
+      {title:'info', likes:32}, 
+      {title:'fci', likes:42},
+      {title:'engage', likes:12},
+      {title:'marriage', likes:72} ];
+    of(...posts).pipe( filter(x => x.likes >= 30)  ).subscribe(console.log)
+  }
+  // sample // take last emitted value
+  sample_(){
+    interval(100).pipe( 
+      sample( interval(350) ), 
+      take(5) ).subscribe(x => console.log(x))
+  }
+  // ------------------------------ Higher Order Observable Operators --------------------------------------
+  // example 
+  higherExample_(){
+    const products = [{id : 1, product : 'PROD 1'},{id : 2, product : 'PROD 2'},{id : 3, product : 'PROD 3'}];
+    const Ps = [1,2,3]
+    from(Ps).pipe(
+      map( pid => from(products).pipe( find(x => x.id == pid))),
+        concatAll(),
+        tap(val => console.log('tab ', val)),
+        ).subscribe( console.log )
+  }
+  // concatAll
+  concatAll_(){
+
+  }
+
 }

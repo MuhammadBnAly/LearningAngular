@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll } from 'rxjs';
+import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-basil',
@@ -11,11 +11,6 @@ export class RxjsBasilComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.from_();
-    // this.of_();
-    // this.interval_();
-    // this.range_();
-    // this.tap_();
   }
 
   // ------------------------------ Creation Operators --------------------------------------
@@ -200,16 +195,28 @@ export class RxjsBasilComponent implements OnInit {
   // example 
   higherExample_(){
     const products = [{id : 1, product : 'PROD 1'},{id : 2, product : 'PROD 2'},{id : 3, product : 'PROD 3'}];
-    const Ps = [1,2,3]
+    const Ps = [1,2,3];
     from(Ps).pipe(
       map( pid => from(products).pipe( find(x => x.id == pid))),
         concatAll(),
-        tap(val => console.log('tab ', val)),
-        ).subscribe( console.log )
+        tap(val => console.log('tab', val)),
+        ).subscribe( console.log );
   }
   // concatAll
   concatAll_(){
-
+    const clicks = new Observable( obs => {
+      obs.next('click 1'),
+      obs.next('click 2'),
+      obs.complete()
+    })
+    //
+    const higherOrder = clicks.pipe(
+      map( () =>  interval(100).pipe( take(4) )  )
+    )
+    //
+    const firstOrder = higherOrder.pipe( concatAll() );
+    //
+    firstOrder.subscribe(console.log)
   }
 
 }

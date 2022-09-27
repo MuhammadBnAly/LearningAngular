@@ -52,10 +52,21 @@
 <!-- higher_order_operators -->
 <div class="nav d-flex higher_order_operators">
     <h2>higher_order_operators</h2>
-    <button mat-raised-button color="primary" (click)=" higherExample_() ">HigherExample</button>
-    <button mat-raised-button color="primary " (click)="skip_()">ConcatAll</button>
-    <button mat-raised-button color="primary " (click)="skipLast_() ">SkipLast</button>
-    <button mat-raised-button color="primary " (click)="skipUntil_() ">SkipUntil</button>
-    <button mat-raised-button color="primary " (click)="skipWhile_() ">SkipWhile</button>
+    <button mat-raised-button color="primary" (click)="higherExample_()">HigherExample</button>
+    <button mat-raised-button color="primary" (click)="concatAll_()">ConcatAll</button>
+    <button mat-raised-button color="primary" (click)="mergeAll_() ">MergeAll</button>
+    <button mat-raised-button color="primary" (click)="exhaustAll_() ">ExhaustAll</button>
+    <button mat-raised-button color="primary" (click)="withLatestFrom_() ">WithLatestFrom</button>
+</div>
+<mat-divider></mat-divider>
+<!-- higher_order_operators -->
+<div class="nav d-flex higher_order_operators">
+    <h2>higher_order_operators</h2>
+    <button mat-raised-button color="warn" (click)="defaulIfEmpty_() ">DefaulIfEmpty</button>
+    <button mat-raised-button color="warn" (click)="startWith_()">StartWith</button>
+    <button mat-raised-button color="warn" (click)="mergeAll_() ">MergeAll</button>
+    <button mat-raised-button color="warn" (click)="exhaustAll_() ">ExhaustAll</button>
+    <button mat-raised-button color="warn" (click)="materialize_() ">Materialize</button>
+    <button mat-raised-button color="warn" (click)="dematerialize_() ">DeMaterialize</button>
 </div>
 <mat-divider></mat-divider>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll, Observable } from 'rxjs';
+import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll, Observable, exhaustAll, mergeAll, withLatestFrom, concatMap, mergeMap, switchMap, exhaustMap, observable, defaultIfEmpty, startWith, reduce, scan, materialize, dematerialize } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-basil',
@@ -217,6 +217,174 @@ export class RxjsBasilComponent implements OnInit {
     const firstOrder = higherOrder.pipe( concatAll() );
     //
     firstOrder.subscribe(console.log)
+    // 01231234
   }
-
+// exhaustAll
+exhaustAll_(){
+  const clicks = new Observable( obs => {
+    // obs.next('click 1'),
+    // // case 1
+    // obs.next('click 2'),
+    // obs.complete()
+    //
+    //  case 2
+    setTimeout(() => obs.next('click 3'), 600);
+    setTimeout( () => obs.complete());
+  })
+  //
+  const higherOrder = clicks.pipe(
+    map( () =>  interval(100).pipe( take(4) )  )
+  )
+  //
+  const firstOrder = higherOrder.pipe( exhaustAll() );
+  //
+  firstOrder.subscribe(console.log)
+  // 0123  0123
+}
+// mergeAll
+mergeAll_(){
+  const clicks = new Observable( obs => {
+    obs.next('click 1'),
+    obs.next('click 2'),
+    obs.complete()
+  })
+  //
+  const higherOrder = clicks.pipe(
+    map( () =>  interval(100).pipe( take(4) )  )
+  )
+  //
+  const firstOrder = higherOrder.pipe( mergeAll() );
+  //
+  firstOrder.subscribe(console.log)
+  // 00112233 
+}
+// concatAll
+withLatestFrom_(){
+  const clicks = new Observable( obs => {
+    setTimeout(() => obs.next('click 1'), 1000);
+    setTimeout(() => obs.next('click 2'), 1500);
+    setTimeout(() => obs.complete(), 2000);
+  })
+  //
+  const timer = interval(500);
+  const result = clicks.pipe( withLatestFrom( timer ) )
+  result.subscribe(console.log);
+}
+  // ------------------------------ Mapping Operator --------------------------------------
+  // 
+  ids = [1,2,3,4];
+  productDetails = [{pid:1, price : 200},{pid:2, price : 60},{pid:3, price : 390},{pid:4, price : 50},];
+  fetchData = (id:any) => { return of(this.productDetails.find(x => x.pid == id)).pipe( delay(500) )}
+  //
+  // concatMap
+  concatMap_(){
+    of('a','b','c').pipe(
+      concatMap( x => interval(100)
+        .pipe( 
+          map(i => x + i ),  
+          take(3) 
+        ))
+    ).subscribe( x => console.log(x));
+    // output // a0,a1,a2,b0,b1,b2,c0,c1,c2
+    //
+    from([1,2,3,4]).pipe( concatMap( pid => this.fetchData(pid)) ).subscribe( console.log);
+    // output // fetchData objects
+    //
+    setTimeout(() => {
+    from([1,2,3,4]).pipe( 
+      concatMap( pid => this.fetchData(pid)),
+      // اضيف اللى انا عايزه هنا .. لما يجرع من ال concatMap
+      map( product => ({...this.productDetails, priceWithTax : product?.price })) 
+      ).subscribe( console.log);
+    }, 500);
+  }
+// mergeMap
+mergeMap_(){
+  of('a','b','c').pipe(
+    mergeMap( x => interval(100)
+      .pipe(
+        map(i => x + i ),
+        take(3)
+      ))
+  ).subscribe( x => console.log(x));
+  // a0,a1,a2,b0,b1,b2,c0,c1,c2
+}
+//switchMap
+switchMap_(){
+  from([1,2,3,4]).pipe(
+    switchMap(pid => this.fetchData(pid)),
+    map( product => ( { ...this.productDetails, totalPrice : product?.price } ) )
+  ).subscribe( x => console.log(x));
+}
+// exhaustMap
+exhaustMap_(){
+  from([1,2,3,4]).pipe(
+    exhaustMap(pid => this.fetchData(pid)),
+    map( product => ( { ...this.productDetails, totalPrice : product?.price } ) )
+  ).subscribe( x => console.log(x));
+}
+// ------------------------------ Transform Source observable Operator --------------------------------------
+  // defaulIfEmpty
+  defaulIfEmpty_(){
+    const clicks = new Observable( obs => obs.complete() );
+    clicks.pipe( defaultIfEmpty('there is no clicks') ).subscribe(console.log);
+  }
+  // startWith
+  startWith_(){
+    const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr'];
+    const weekEnds = ['Fri', 'Sat'];
+    of(...weekEnds).pipe( startWith(...weekDays) ).subscribe(console.log);
+  }
+  // reduce
+  clicks = new Observable(obs =>{
+    obs.next('click 1');
+    obs.next('click 2');
+    obs.next('click 3');
+    obs.next('click 4');
+    obs.next('click 5');
+    obs.complete();
+  });
+  reduce_(){
+    
+    this.clicks.pipe( map(() => 1), reduce( (acc , one) => acc + one , 0 ) ).subscribe(console.log);
+    //
+    of(1,2,3).pipe(
+      reduce( (total , n) => total + n , 0),
+      tap(console.log),
+      map( (sum, index) => {
+        console.log(sum (index + 1));
+        return sum / (index + 1);
+      })
+    )
+  }
+  // scan
+  scan_(){
+    this.clicks.pipe(
+      map( () => 1),
+      scan( (acc , curr) => acc + curr, 0),
+      tap(console.log),
+    ).subscribe(console.log);
+    //
+    of(1,2,3).pipe(
+      scan( (acc , curr) => acc + curr),
+      map( (sum , index) => sum / index + 1)
+    ).subscribe(console.log)
+  }
+  // materialize
+  materialize_(){
+    of('a', 'b', 13 , 'c').pipe(
+      map( x => x.toString().toUpperCase()),
+      materialize()
+    ).subscribe(console.log)
+  }
+  // dematerialize
+  dematerialize_(){
+    // const notifies = [{kind:'A', q:1},{kind:'A', q:2},
+    // {kind:'B', q:3, error : new TypeError('this is error from 3rd obj')}]
+    // of(notifies)
+    // .pipe( dematerialize() ).subscribe({
+    //   next : x => console.log(x),
+    //   error : x => console.log('err' + x)
+  // });
+  }
 }

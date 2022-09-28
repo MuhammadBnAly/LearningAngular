@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll, Observable, exhaustAll, mergeAll, withLatestFrom, concatMap, mergeMap, switchMap, exhaustMap, observable, defaultIfEmpty, startWith, reduce, scan, materialize, dematerialize } from 'rxjs';
+import { count, delay, every, from, interval, of, range, tap, EMPTY, isEmpty, first, last, take, min, max, find, findIndex, elementAt, takeLast, takeUntil, timer, takeWhile, skip, skipLast, skipWhile, skipUntil, distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, sample, map, concatAll, Observable, exhaustAll, mergeAll, withLatestFrom, concatMap, mergeMap, switchMap, exhaustMap, observable, defaultIfEmpty, startWith, reduce, scan, materialize, dematerialize, NextNotification } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-basil',
@@ -379,12 +379,13 @@ exhaustMap_(){
   }
   // dematerialize
   dematerialize_(){
-    // const notifies = [{kind:'A', q:1},{kind:'A', q:2},
-    // {kind:'B', q:3, error : new TypeError('this is error from 3rd obj')}]
-    // of(notifies)
-    // .pipe( dematerialize() ).subscribe({
-    //   next : x => console.log(x),
-    //   error : x => console.log('err' + x)
-  // });
+    const NotiA = { kind :'A' , q:1};
+    const NotiB = {kind:'A', q:2};
+    const NotiC = {kind:'B', q:3 , error : new TypeError('this is error from 3rd obj') };
+    //
+    of(NotiA, NotiB, NotiC).pipe( dematerialize() ).subscribe({
+      next : x => console.log(x),
+      error : x => console.log('err' + x)
+  });
   }
 }
